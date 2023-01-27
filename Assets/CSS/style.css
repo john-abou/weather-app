@@ -1,0 +1,25 @@
+html,body {
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #000;
+    color: #fff;
+    margin: 15px 0px;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+
+}
+
+.custom-card{
+    display: inline-block;
+    margin: 12px 5px;
+    width: 18%;
+}
+
+.preset-weather {
+    display: inline-block;
+    margin: 10px 0px;
+    width: 100%
+}
