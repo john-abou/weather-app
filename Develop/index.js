@@ -6,13 +6,12 @@ let searchHistory = [];
 
 // Create a function to save the search history to local storage
 
+
 // Create a function to get the search history from local storage and update the preset buttons
 
 // Create a function to get the latitude and longitude from the OpenWeather API
 
 // Create a function to get the weather from the OpenWeather API
-
-// Create a function to display the weather data on the page
 const getWeather = async (lat, long) => {
     const response = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${apiKey}&units=imperial`
@@ -21,12 +20,11 @@ const getWeather = async (lat, long) => {
     return weatherData;
     }
 
-// Define the DOM variables used with event listeners
-let asideElement = document.querySelector('aside');
+// Create a function to display the weather data on the page
 
-// Make an event listener for the button that calls the getWeather function
-asideElement.addEventListener('click', function(event) {
 
+// Create a function to handle the button click handlers
+function (event) {
     let elementClicked  = event.target; // Get the element that was clicked
     
     // verify that the element clicked was a button
@@ -49,4 +47,11 @@ asideElement.addEventListener('click', function(event) {
     
         // Use the latitude and longited to get the weather --> getWeather(lat, long);
     }
-});
+}
+
+
+// Define the DOM variables used with event listeners
+let asideElement = document.querySelector('aside');
+
+// Make an event listener for the button that calls the getWeather function
+asideElement.addEventListener('click', buttonClickHandler);
