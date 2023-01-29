@@ -6,6 +6,7 @@ let searchHistory = [];
 // Define the DOM variables
 let currentWeatherElement = document.querySelector('#current-weather');
 let asideElement = document.querySelector('aside');
+let forecastElement = document.querySelector('#forecast');
 
 
 // Define all the variables
@@ -14,6 +15,7 @@ function isoToReadableDate( isoNumber ) {
     let milliseconds = isoNumber * 1000;
     let dateObject = new Date(milliseconds);
     humanDateFormat = dateObject.toLocaleString();
+    humanDateFormat = humanDateFormat.substring(0, humanDateFormat.length-12);
     return humanDateFormat;
 }
 
@@ -73,6 +75,7 @@ function getCurrentWeather () {
     let lat = currentWeatherElement.getAttribute('data-lat');
     let long = currentWeatherElement.getAttribute('data-lon');
     let queryString = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + "&appid=" + APIkey;
+
     
     fetch(queryString)
         .then(function (response) {
@@ -103,19 +106,42 @@ function getCurrentWeather () {
 function getForecastWeather () {
     let lat = currentWeatherElement.getAttribute('data-lat');
     let lon = currentWeatherElement.getAttribute('data-lon');
-    let queryString = "https://pro.openweathermap.org/data/2.5/forecast/climate?lat=" + lat + "&lon=" + lon + "&appid=" + APIkey;
+    let queryString = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIkey;
 
     fetch(queryString)
-        .then( function (response) {
+        .then(function (response) {
             if (!response.ok) {
                 throw response.json();
             }
         
             return response.json();
         })
-        .then(function (data) {
-            console.log(data);
 
+        .then(function (data) {
+            console.log(data.list);
+
+            // Use a for loop to get the data for the next 5 days
+            // for the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+            let index=0;
+            for ( let i=0 ; i < 40; i=i+8) {
+                // This part of the for loop works as intended -- it is grabbing data for every 8th index in the array (daily data)
+                let date = isoToReadableDate(data.list[i].dt);
+                let iconCode = data.list[i].weather[0].icon;
+                let temp = Math.floor(data.list[i].main.temp - 275.15);
+                let windSpeed = data.list[i].wind.speed;
+                let humidity = data.list[i].main.humidity;
+                console.log(date, iconCode, temp, windSpeed, humidity);
+
+                let forecastCard = forecastElement.children[index].children[0];
+                index++;
+
+                forecastCard.children[0].textContent = date;
+                forecastCard.children[1].setAttribute("src", "./Assets/Images/icons/" + iconCode + ".png");
+                forecastCard.children[2].textContent = "Temp: " + temp + "°C";
+                forecastCard.children[3].textContent = "Wind Speed: " + windSpeed + "m/s";
+                forecastCard.children[4].textContent = "Humidity: " + humidity + "%";
+            }
+            
         })
     
 }
