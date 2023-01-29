@@ -123,14 +123,14 @@ function getForecastWeather () {
             // Use a for loop to get the data for the next 5 days
             // for the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
             let index=0;
-            for ( let i=0 ; i < 40; i=i+8) {
+            for ( let i=7 ; i < 40; i=i+8) {
                 // This part of the for loop works as intended -- it is grabbing data for every 8th index in the array (daily data)
                 let date = isoToReadableDate(data.list[i].dt);
                 let iconCode = data.list[i].weather[0].icon;
                 let temp = Math.floor(data.list[i].main.temp - 275.15);
                 let windSpeed = data.list[i].wind.speed;
                 let humidity = data.list[i].main.humidity;
-                console.log(date, iconCode, temp, windSpeed, humidity);
+                console.log(date, iconCode, temp, windSpeed, humidity, i);
 
                 let forecastCard = forecastElement.children[index].children[0];
                 index++;
