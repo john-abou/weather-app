@@ -4,6 +4,7 @@ let searchHistory = [];
 
 // Define the DOM variables
 let currentWeatherElement = document.querySelector('#current-weather');
+let asideElement = document.querySelector('aside');
 
 // Create a function to save the search history to local storage
 function saveSearchHistory() {
@@ -42,11 +43,24 @@ function getCoordinates( cityName ) {
             let longitude = data[0]['lon'];
             currentWeatherElement.setAttribute('data-lat', latitude);
             currentWeatherElement.setAttribute('data-lon', longitude);
+
+
+            // After the city has been retrieved, get the current weather and future weather
+            getCurrentWeather();
         })        
 }
 
+function isoToReadableDate( isoNumber ) {
+    let milliseconds = isoNumber * 1000;
+    let dateObject = new Date(milliseconds);
+    humanDateFormat = dateObject.toLocaleString();
+    return humanDateFormat;
+}
+
 //Create a function to get the current weather from the OpenWeather API
-function getCurrentWeather (lat, long) {
+function getCurrentWeather () {
+    let lat = currentWeatherElement.getAttribute('data-lat');
+    let long = currentWeatherElement.getAttribute('data-lon');
     let queryString = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + long + "&appid="+ APIkey;
     
     fetch(queryString)
@@ -54,12 +68,17 @@ function getCurrentWeather (lat, long) {
             if (!response.ok) {
                 throw response.json();
             }
-            console.log(response);
-            console.log('In the getCurrentWeather function');
+
             return response.json();
         })
         .then(function (data) {
             console.log(data);
+            //the city name, the date, an icon representation of weather conditions, the temperature, the humidity, and the wind speed
+            console.log(data.main["temp"]);
+            console.log(data.weather[0]["icon"]); // ---> this does not produce an icon
+            // Fill the src attr for the icon with the string: https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon
+            console.log(data.main["humidity"]);
+            console.log(data.wind["speed"])
         })
     }
 
@@ -77,18 +96,10 @@ function buttonClickHandler (event) {
         if (elementClicked.matches('.search')) {
             let city = document.querySelector('input').value;
             getCoordinates(city);
-            let latitude = currentWeatherElement.getAttribute('data-lat');
-            console.log(latitude);
-            let longitude = currentWeatherElement.getAttribute('data-lon');
-            getCurrentWeather( latitude, longitude );
                 // getFutureWeather(coordinates);
-            };
-        } else {
+            } else {
             let city = elementClicked.textContent;
             getCoordinates(city);
-            let latitude = currentWeatherElement.getAttribute('data-lat');
-            let longitude = currentWeatherElement.getAttribute('data-lon');
-            getCurrentWeather( latitude, longitude );
                 // getFutureWeather(coordinates);
             };
 
@@ -99,10 +110,8 @@ function buttonClickHandler (event) {
     
     
         // Use the latitude and longited to get the weather --> getWeather(lat, long);
+    }
 }
-
-// Define the DOM variables used with event listeners
-let asideElement = document.querySelector('aside');
 
 // Make an event listener for the button that calls the getWeather function
 asideElement.addEventListener('click', buttonClickHandler);
