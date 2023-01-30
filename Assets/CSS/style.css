@@ -17,12 +17,10 @@ header {
 
 /*Styling the cards */
 .custom-card{
-    display: inline-block;
     margin: 12px 5px;
     width: 18%;
 }
 .search-history {
-    display: inline-block;
     margin: 5px 0px;
     width: 100%
 }
@@ -42,3 +40,5 @@ header {
 #forecast img {
     width: 30%;
 }
+
+/* Media Queries */

@@ -146,7 +146,7 @@ function getForecastWeather () {
                 // Grab all the data needed from the API response
                 let date = isoToReadableDate(data.list[i].dt);
                 let iconCode = data.list[i].weather[0].icon;
-                let temp = Math.floor(data.list[i].main.temp - 275.15);
+                let temp = Math.floor(data.list[i].main.temp - 273.15);
                 let windSpeed = data.list[i].wind.speed;
                 let humidity = data.list[i].main.humidity;
 
