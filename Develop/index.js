@@ -10,11 +10,11 @@ let forecastElement = document.querySelector('#forecast');
 let searchHistoryElement = document.querySelector('#search-history-container');
 
 
-// Define all the variables
 
+//Define all the functions
 // Create a function to run on the start of the page
 function init() {
-    console.log(getSearchHistory());
+    // Check if there is a search history in local storage
     if (!getSearchHistory()) {
         searchHistory = [];
         getCoordinates("Toronto");
@@ -23,12 +23,12 @@ function init() {
     }    
 }
 
-//Create a function to make the iso date time to a human readable timestamp.
+//Create a function to make the iso date time from the response into a human readable timestamp.
 function isoToReadableDate( isoNumber ) {
     let milliseconds = isoNumber * 1000;
     let dateObject = new Date(milliseconds);
     humanDateFormat = dateObject.toLocaleString();
-    humanDateFormat = humanDateFormat.substring(0, humanDateFormat.length-12);
+    humanDateFormat = humanDateFormat.substring(0, humanDateFormat.length-12); // remove the hours, minutes, and seconds from the date
     return humanDateFormat;
 }
 
@@ -43,9 +43,11 @@ function saveSearchHistory(city) {
 // Create a function to get the search history from local storage and update the preset buttons
 function getSearchHistory() {
     searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
-    console.log(searchHistory);
     if (searchHistory) {
+        // Clear the search history buttons
         searchHistoryElement.innerHTML = "";
+
+        // Make the search history buttons for everything in history
         for (let i = 0; i < searchHistory.length && i<5 ; i++) {
             let newButton = document.createElement('button');
             newButton.setAttribute('class', 'btn btn-dark search-history');
@@ -59,6 +61,7 @@ function getSearchHistory() {
 function getCoordinates( cityName ) {
     let queryString = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&appid=' + APIkey;
 
+    // Make the API call
     fetch(queryString)
         .then(function (response) {
             if (!response.ok) {
@@ -73,6 +76,8 @@ function getCoordinates( cityName ) {
             // Get the latitude and longitude from the response.
             let latitude = data[0]['lat'];
             let longitude = data[0]['lon'];
+
+            // Store the latitude and longitude as a data attribute which can be called later.
             currentWeatherElement.children[0].innerHTML = cityName;
             currentWeatherElement.setAttribute('data-lat', latitude);
             currentWeatherElement.setAttribute('data-lon', longitude);
@@ -114,14 +119,16 @@ function getCurrentWeather () {
             currentWeatherElement.children[3].innerHTML = "Humidity: " + humidity + "%";
             currentWeatherElement.children[4].innerHTML = "Wind Speed: " + windSpeed + "m/s";
         })
-    }
+}
 
 // Create a function to display the forecast weather data on the page
 function getForecastWeather () {
+    // Retrieve the latitude and longitude from the current weather element
     let lat = currentWeatherElement.getAttribute('data-lat');
     let lon = currentWeatherElement.getAttribute('data-lon');
     let queryString = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIkey;
 
+    // Make the API call
     fetch(queryString)
         .then(function (response) {
             if (!response.ok) {
@@ -132,20 +139,22 @@ function getForecastWeather () {
         })
 
         .then(function (data) {
-            // Use a for loop to get the data for the next 5 days
-            // for the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+            // Use a for loop to get the data for the next 5 days from the API response
+            // Use a counter to keep track of the index for the forecast cards
             let index=0;
             for ( let i=7 ; i < 40; i=i+8) {
-                // This part of the for loop works as intended -- it is grabbing data for every 8th index in the array (daily data)
+                // Grab all the data needed from the API response
                 let date = isoToReadableDate(data.list[i].dt);
                 let iconCode = data.list[i].weather[0].icon;
                 let temp = Math.floor(data.list[i].main.temp - 275.15);
                 let windSpeed = data.list[i].wind.speed;
                 let humidity = data.list[i].main.humidity;
 
+                // Define the current forecast card then update the index
                 let forecastCard = forecastElement.children[index].children[0];
                 index++;
 
+                // Update the current forecast card with the data from the API response
                 forecastCard.children[0].textContent = date;
                 forecastCard.children[1].setAttribute("src", "./Assets/Images/icons/" + iconCode + ".png");
                 forecastCard.children[2].textContent = "Temp: " + temp + "°C";
@@ -161,17 +170,16 @@ function getForecastWeather () {
 function buttonClickHandler (event) {
     let elementClicked  = event.target; // Get the element that was clicked
     
-    // verify that the element clicked was a button
+    // Check if the search button was clicked and ensure the input is not empty
     if (elementClicked.matches('.search')) {
-        city = document.querySelector('input').value;
+        city = document.querySelector('input').value; // Get the value from the input
         if (city !== "") {
             getCoordinates(city);
             saveSearchHistory(city);
             getSearchHistory(); 
         }
     }
-    // For the search bar, grab the city name from the input field
-    // When using the preset buttons, grab the city name from the button text
+    // Else, if the search history button was clicked, get the coordinates for the city
     else if (elementClicked.matches('button')) {
         let city = elementClicked.textContent; // Get the text from the button
         getCoordinates(city);
