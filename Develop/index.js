@@ -7,9 +7,22 @@ let searchHistory = [];
 let currentWeatherElement = document.querySelector('#current-weather');
 let asideElement = document.querySelector('aside');
 let forecastElement = document.querySelector('#forecast');
+let searchHistoryElement = document.querySelector('#search-history-container');
 
 
 // Define all the variables
+
+// Create a function to run on the start of the page
+function init() {
+    console.log(getSearchHistory());
+    if (!getSearchHistory()) {
+        searchHistory = [];
+        getCoordinates("Toronto");
+    } else {
+        getCoordinates(searchHistory[0]);
+    }    
+}
+
 //Create a function to make the iso date time to a human readable timestamp.
 function isoToReadableDate( isoNumber ) {
     let milliseconds = isoNumber * 1000;
@@ -19,24 +32,25 @@ function isoToReadableDate( isoNumber ) {
     return humanDateFormat;
 }
 
-// Create a function to run on the start of the page
-function init() {
-    getCoordinates("Toronto");
-}
-
 // Create a function to save the search history to local storage
-function saveSearchHistory() {
-    let currentSearch = document.querySelector('input').value();
-    searchHistory.push(currentSearch);
-    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+function saveSearchHistory(city) {
+    if (city !== "") {
+        searchHistory.unshift(city);
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+    }
 }
 
 // Create a function to get the search history from local storage and update the preset buttons
 function getSearchHistory() {
     searchHistory = JSON.parse(localStorage.getItem('searchHistory'));
+    console.log(searchHistory);
     if (searchHistory) {
-        for (let i = 0; i < searchHistory.length; i++) {
-            document.querySelectorAll('.preset-button')[i].textContent = searchHistory[i];
+        searchHistoryElement.innerHTML = "";
+        for (let i = 0; i < searchHistory.length && i<5 ; i++) {
+            let newButton = document.createElement('button');
+            newButton.setAttribute('class', 'btn btn-dark search-history');
+            searchHistoryElement.appendChild(newButton);
+            document.querySelectorAll('.search-history')[i].textContent = searchHistory[i]; 
         }
     }
 }
@@ -118,8 +132,6 @@ function getForecastWeather () {
         })
 
         .then(function (data) {
-            console.log(data.list);
-
             // Use a for loop to get the data for the next 5 days
             // for the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
             let index=0;
@@ -130,7 +142,6 @@ function getForecastWeather () {
                 let temp = Math.floor(data.list[i].main.temp - 275.15);
                 let windSpeed = data.list[i].wind.speed;
                 let humidity = data.list[i].main.humidity;
-                console.log(date, iconCode, temp, windSpeed, humidity, i);
 
                 let forecastCard = forecastElement.children[index].children[0];
                 index++;
@@ -151,27 +162,22 @@ function buttonClickHandler (event) {
     let elementClicked  = event.target; // Get the element that was clicked
     
     // verify that the element clicked was a button
-    if (elementClicked.matches('button')) {
-        // For the search bar, grab the city name from the input field
-        // When using the preset buttons, grab the city name from the button text
-        if (elementClicked.matches('.search')) {
-            let city = document.querySelector('input').value;
+    if (elementClicked.matches('.search')) {
+        city = document.querySelector('input').value;
+        if (city !== "") {
             getCoordinates(city);
-                // getFutureWeather(coordinates);
-            } else {
-            let city = elementClicked.textContent;
-            getCoordinates(city);
-                // getFutureWeather(coordinates);
-            };
-
-        // Save the city name to local storage and update the preset-button text elements
-
-
-        // Use the city to get the latitude and longitude --> getLatLong(city);
-    
-    
-        // Use the latitude and longited to get the weather --> getWeather(lat, long);
+            saveSearchHistory(city);
+            getSearchHistory(); 
+        }
     }
+    // For the search bar, grab the city name from the input field
+    // When using the preset buttons, grab the city name from the button text
+    else if (elementClicked.matches('button')) {
+        let city = elementClicked.textContent; // Get the text from the button
+        getCoordinates(city);
+        saveSearchHistory(city);
+        getSearchHistory();
+    } 
 }
 
 init();
