@@ -16,11 +16,6 @@ The webpage has been made for anyone who would like to view the upcoming weather
 <img src="./Assets/Images/weather-desktop.png" alt ="Weather-app on the desktop"><br>
 
 
-### Mobile webpage screenshot
-* <b>Start page on Mobile</b> <br>
-<img src="./Assets/Images/" alt ="Weather app page on Mobile"><br>
-
-
 ## Credits
 Credits to the discord group for working together to figure out some of the trickier though processes. Also, never forget the MVP's of learning -- stack overflow and google.
 
