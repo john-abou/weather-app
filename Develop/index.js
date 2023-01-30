@@ -59,7 +59,7 @@ function getSearchHistory() {
 
 // Create a function to get the latitude and longitude from the OpenWeather API
 function getCoordinates( cityName ) {
-    let queryString = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&appid=' + APIkey;
+    let queryString = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityName + '&appid=' + APIkey;
 
     // Make the API call
     fetch(queryString)
