@@ -18,7 +18,7 @@ header {
 /*Styling the cards */
 .custom-card{
     margin: 12px 5px;
-    width: 18%;
+    /* width: 18%; */
 }
 .search-history {
     margin: 5px 0px;

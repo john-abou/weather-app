@@ -114,7 +114,7 @@ function getCurrentWeather () {
             
 
             currentWeatherElement.children[0].innerHTML += " " + date;
-            currentWeatherElement.children[1].setAttribute("src", "./Assets/Images/icons/" + iconCode + ".png");
+            currentWeatherElement.children[1].setAttribute("src", "./assets/images/icons/" + iconCode + ".png");
             currentWeatherElement.children[2].innerHTML = "Temp: " + temp + "°C";
             currentWeatherElement.children[3].innerHTML = "Humidity: " + humidity + "%";
             currentWeatherElement.children[4].innerHTML = "Wind Speed: " + windSpeed + "m/s";
