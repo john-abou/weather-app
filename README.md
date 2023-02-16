@@ -25,3 +25,11 @@ This webpage has been made commercially available under the MIT license.
 
 - - -
 © Copyright. john-abou. The one piece is real 🏴‍☠
+
+
+
+Performer.id is one of the main things we need from seat geek --- tbd how we get it -- 
+
+Events End point
+datetime_utc is the date time of the event
+
