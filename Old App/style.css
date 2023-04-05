@@ -1,0 +1,38 @@
+/*Styling the main components of the page */
+html,body {
+    box-sizing: border-box;
+}
+
+/*Styling the header */
+header {
+    background-color: #000;
+    color: #fff;
+    margin: 15px 0px;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+/*Styling the cards */
+.custom-card{
+    margin: 1em 1em;
+}
+.search-history {
+    margin: 5px 0px;
+    width: 100%
+}
+
+/* Styling the forecast cards */
+#forecast h5 {
+    font-size: 80%;
+    text-align: left;
+    width: 100%;
+}
+#forecast p {
+    font-size: 70%;
+    text-align: left;
+    width: 100%;
+}
+#forecast img {
+    width: 30%;
+}
