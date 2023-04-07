@@ -1,15 +1,19 @@
 import React from 'react';
 // Import components from the components folder
 import Navbar from './components/Navbar';
-import Main from './components/Main';
+import Today from './components/Today';
 import Forecast from './components/Forecast';
+// Import the WeatherProvider from the contexts folder
+import { WeatherProvider } from './contexts';
 
 export default function App() {
   return (
-    <div className='App'>
-      <Navbar />
-      <Main />
-      <Forecast />
-    </div>
+    <WeatherProvider>
+      <div className='App'>
+        <Navbar />
+        <Today />
+        <Forecast />
+      </div>
+    </WeatherProvider>
   );
 }
