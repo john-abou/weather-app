@@ -5,8 +5,7 @@ export default function Today() {
     <div className='main'>
       <div className='main__container'>
         <div className='main__title'>
-          <h1>Weather App</h1>
-          
+          {/* Should contain temperature and background image based on weather */}          
         </div>
       </div>
     </div>

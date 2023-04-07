@@ -1,7 +1,9 @@
 import React from 'react';
 import ForecastCard from '../ForecastCard';
+import { useWeatherContext } from '../../contexts';
 
 export default function Forecast() {
+  const [state, dispatch] = useWeatherContext();
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   const getWeatherData = () => {
