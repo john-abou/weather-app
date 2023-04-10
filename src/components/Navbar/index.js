@@ -3,11 +3,11 @@ import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import { useWeatherContext } from '../../contexts';
+import { UPDATE_CURRENT_CITY, UPDATE_GEOCOORDINATES } from '../../utils/actions';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -52,6 +52,37 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+  // Get the state and dispatch from the context
+  const [state, dispatch] = useWeatherContext();
+
+  // Create a function to handle the search submit - it will dispatch the action to update the current city
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault();
+    // update the state of the current city
+    dispatch({
+      type: UPDATE_CURRENT_CITY,
+      currentCity: e.target.value
+    });
+
+    // Use openweather API to get geocoordinate data for the city searched
+    const queryString = 'https://api.openweathermap.org/geo/1.0/direct?q=' + e.target.value + '&appid=5d82752b5eec77e02284baee59150776';
+    const response = await fetch(queryString);
+    if (response.ok) { 
+      const data = await response.json()
+      const geoCoordinates = {
+        lat: data[0].lat, 
+        lon: data[0].lon
+        };
+      // update the state with the cities geocoordinates
+      dispatch({
+        type: UPDATE_GEOCOORDINATES,
+        geoCoordinates: geoCoordinates
+      });
+    } else {
+      console.log('Error: ' + response.statusText);
+    }
+  };
+  
   return (
     <Box sx={{ 
       flexGrow: 1, 
@@ -71,8 +102,13 @@ export default function SearchAppBar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Search a city…"
               inputProps={{ 'aria-label': 'search' }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handleSearchSubmit(e);
+                }
+              }}
             />
           </Search>
         </Toolbar>

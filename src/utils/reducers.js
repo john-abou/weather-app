@@ -1,14 +1,14 @@
-import { UPDATE_SEARCH, CURRENT_CITY, CITY_WEATHER } from './actions.js'
+import { UPDATE_GEOCOORDINATES, UPDATE_CURRENT_CITY, CITY_WEATHER } from './actions.js'
 import { useReducer } from 'react';
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case UPDATE_SEARCH:
+    case UPDATE_GEOCOORDINATES:
       return {
         ...state,
-        search: action.search
+        geoCoordinates: action.geoCoordinates
       };
-    case CURRENT_CITY:
+    case UPDATE_CURRENT_CITY:
       return {
         ...state,
         currentCity: action.currentCity

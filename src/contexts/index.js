@@ -5,7 +5,6 @@ const WeatherContext = createContext();
 
 export const WeatherProvider = ({ children }) => {
   const [state, dispatch] = useWeatherReducer({
-    search: '',
     loading: false,
     currentCity: '',
     searchHistory: [],
