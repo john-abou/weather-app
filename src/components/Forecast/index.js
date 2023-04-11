@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import ForecastCard from '../ForecastCard';
 import { useWeatherContext } from '../../contexts';
 import { FIVE_DAY_FORECAST } from '../../utils/actions';
+import './style.css';
 
 export default function Forecast() {
   const [state, dispatch] = useWeatherContext();
@@ -30,16 +31,20 @@ export default function Forecast() {
     if (geoCoordinates) {
       getCityForecast();
       console.log(state);
+      console.log(state.fiveDayForecast);
+
     }
   }, [geoCoordinates]);
 
-  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
   return (
     <div className='forecast-container'>
-      {days.map((day, index) => (
+      {(state.fiveDayForecast !== []) ? 
+        state.fiveDayForecast.map((day, index) => (
         <ForecastCard day={day} key={index} />
-      ))}
+      ))
+      :
+        <h1>Loading...</h1>
+      }
     </div>
   );
 }

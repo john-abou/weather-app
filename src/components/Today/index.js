@@ -57,53 +57,57 @@ export default function Today() {
   const formatDate = () => {
     const milliseconds = todaysWeather.dt * 1000;
     const dateObject = new Date(milliseconds);
-    let humanDateFormat = dateObject.toLocaleString();
-    humanDateFormat = humanDateFormat.substring(0, humanDateFormat.length-18); // remove the hours, minutes, and seconds from the date
-
-    return humanDateFormat;
+    const month = dateObject.getMonth() + 1;
+    const dayOfMonth = dateObject.getDate();
+    const formattedDate = `${month.toString().padStart(2, '0')}/${dayOfMonth.toString().padStart(2, '0')}`;
+    return formattedDate;
   }
 
   const getIcon = () => {
-    const icon = todaysWeather.weather[0].icon;
-    switch (icon) {
-      case '01d':
-        return sunny;
-      case '01n':
-        return night;
-      case '02d':
-        return sunCloudy;
-      case '02n':
-        return sunCloudy;
-      case '03d':
-        return cloudSunny;
-      case '03n':
-        return cloudNight;
-      case '04d':
-        return cloudy;
-      case '04n':
-        return cloudy2;
-      case '09d':
-        return rain;
-      case '09n':
-        return rain2;
-      case '10d':
-        return rain3;
-      case '10n':
-        return rain4;
-      case '11d':
-        return storm;
-      case '11n':
-        return storm2;
-      case '13d':
-        return snow;
-      case '13n':
-        return snow2;
-      case '50d':
-        return windy;
-      case '50n':
-        return windy2;
-      default:
-        return sunny;
+    if (todaysWeather.weather === undefined) {
+      return sunny;
+    } else {
+      const icon = todaysWeather.weather[0].icon;
+      switch (icon) {
+        case '01d':
+          return sunny;
+        case '01n':
+          return night;
+        case '02d':
+          return sunCloudy;
+        case '02n':
+          return sunCloudy;
+        case '03d':
+          return cloudSunny;
+        case '03n':
+          return cloudNight;
+        case '04d':
+          return cloudy;
+        case '04n':
+          return cloudy2;
+        case '09d':
+          return rain;
+        case '09n':
+          return rain2;
+        case '10d':
+          return rain3;
+        case '10n':
+          return rain4;
+        case '11d':
+          return storm;
+        case '11n':
+          return storm2;
+        case '13d':
+          return snow;
+        case '13n':
+          return snow2;
+        case '50d':
+          return windy;
+        case '50n':
+          return windy2;
+        default:
+          return sunny;
+      }
     }
   }
   return (
@@ -119,14 +123,17 @@ export default function Today() {
                 alignItems: 'center'
               }}
             >
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography 
+              gutterBottom 
+              variant="h6" 
+              component="div">
                   {formatDate()}
               </Typography>
             </CardContent>
             <CardMedia
               component="img"
               height="160"
-              image={sunny}
+              image={getIcon()}
               alt="weather forecast"
             />
             <CardContent>
@@ -139,7 +146,7 @@ export default function Today() {
                   alignItems: 'center'
                 }}
               >
-                {Math.floor(273.15) + '°C'}
+                {(todaysWeather.main===undefined) ? Math.floor(273.15) + '°C' : Math.floor(todaysWeather?.main?.temp - 273.15) + '°C'}
               </Typography>
             </CardContent>
           </CardActionArea>

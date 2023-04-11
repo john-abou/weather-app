@@ -7,7 +7,7 @@ export const WeatherProvider = ({ children }) => {
   const [state, dispatch] = useWeatherReducer({
     currentCity: 'Toronto',
     todaysWeather: {},
-    fiveDayForecast: {},
+    fiveDayForecast: [],
     geoCoordinates: {
       lat: 43.6535, 
       lon: -79.3839
