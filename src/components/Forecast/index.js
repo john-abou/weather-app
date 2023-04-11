@@ -18,7 +18,7 @@ export default function Forecast() {
       // Update the state with the current city's forecast
       dispatch({
         type: FIVE_DAY_FORECAST,
-        cityForecast: data.list
+        fiveDayForecast: data.list
       });
 
     } else {
@@ -36,12 +36,10 @@ export default function Forecast() {
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   return (
-    <div className='forecast'>
-      <div className='forecast__container'>
-        {days.map((day, index) => (
-          <ForecastCard day={day} key={index} />
-        ))}
-      </div>
+    <div className='forecast-container'>
+      {days.map((day, index) => (
+        <ForecastCard day={day} key={index} />
+      ))}
     </div>
   );
 }

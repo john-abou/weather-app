@@ -24,9 +24,65 @@ import windy2 from '../../assets/images/icons/50n.png';
 
 
 export default function ForecastCard( { day } ) {
-  console.log(sunny);
+  const getIcon = () => {
+    const icon = day.weather[0].icon;
+    switch (icon) {
+      case '01d':
+        return sunny;
+      case '01n':
+        return night;
+      case '02d':
+        return sunCloudy;
+      case '02n':
+        return sunCloudy;
+      case '03d':
+        return cloudSunny;
+      case '03n':
+        return cloudNight;
+      case '04d':
+        return cloudy;
+      case '04n':
+        return cloudy2;
+      case '09d':
+        return rain;
+      case '09n':
+        return rain2;
+      case '10d':
+        return rain3;
+      case '10n':
+        return rain4;
+      case '11d':
+        return storm;
+      case '11n':
+        return storm2;
+      case '13d':
+        return snow;
+      case '13n':
+        return snow2;
+      case '50d':
+        return windy;
+      case '50n':
+        return windy2;
+      default:
+        return sunny;
+    }
+  }
+  const formatDate = () => {
+    const milliseconds = day.dt * 1000;
+    const dateObject = new Date(milliseconds);
+    let humanDateFormat = dateObject.toLocaleString();
+    humanDateFormat = humanDateFormat.substring(0, humanDateFormat.length-18); // remove the hours, minutes, and seconds from the date
+
+    return humanDateFormat;
+  }
+
   return (
-    <Card sx={{ maxWidth: 250 }}>
+    <Card sx={{ 
+      maxWidth: 50,
+      height: 150,
+      display: 'inline-block',
+      margin: 1
+      }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -35,13 +91,16 @@ export default function ForecastCard( { day } ) {
           alt="weather forecast"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {/* Lizard  --- this should be the date */}
-
+          <Typography 
+          gutterBottom 
+          variant="h6" 
+          component="div">
+            {formatDate()}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          <Typography 
+          variant="body2" 
+          color="text.secondary">
+            {}
           </Typography>
         </CardContent>
       </CardActionArea>

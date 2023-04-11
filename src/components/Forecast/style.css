@@ -1,0 +1,10 @@
+.forecast-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 80vh;
+  height: 25vh;
+  overflow-x: scroll;
+}

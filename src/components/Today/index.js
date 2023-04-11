@@ -126,7 +126,7 @@ export default function Today() {
             <CardMedia
               component="img"
               height="160"
-              image={getIcon()}
+              image={sunny}
               alt="weather forecast"
             />
             <CardContent>
@@ -139,7 +139,7 @@ export default function Today() {
                   alignItems: 'center'
                 }}
               >
-                {Math.floor(todaysWeather.main.temp -273.15) + '°C'}
+                {Math.floor(273.15) + '°C'}
               </Typography>
             </CardContent>
           </CardActionArea>
