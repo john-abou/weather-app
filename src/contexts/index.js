@@ -5,10 +5,14 @@ const WeatherContext = createContext();
 
 export const WeatherProvider = ({ children }) => {
   const [state, dispatch] = useWeatherReducer({
-    loading: false,
-    currentCity: '',
+    currentCity: 'Toronto',
+    todaysWeather: {},
+    fiveDayForecast: {},
+    geoCoordinates: {
+      lat: 43.6535, 
+      lon: -79.3839
+    },
     searchHistory: [],
-    cityWeather: []
   });
 
   return (

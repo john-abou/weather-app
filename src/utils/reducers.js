@@ -1,4 +1,4 @@
-import { UPDATE_GEOCOORDINATES, UPDATE_CURRENT_CITY, CITY_WEATHER } from './actions.js'
+import { UPDATE_GEOCOORDINATES, UPDATE_CURRENT_CITY, TODAYS_WEATHER, FIVE_DAY_FORECAST } from './actions.js'
 import { useReducer } from 'react';
 
 export const reducer = (state, action) => {
@@ -13,11 +13,16 @@ export const reducer = (state, action) => {
         ...state,
         currentCity: action.currentCity
       };
-    case CITY_WEATHER:
+    case TODAYS_WEATHER:
       return {
         ...state,
-        cityWeather: action.cityWeather
+        todaysWeather: action.todaysWeather
       };
+    case FIVE_DAY_FORECAST:
+      return {
+        ...state,
+        fiveDayForecast: action.fiveDayForecast
+      };    
     default:
       return state;
   }
