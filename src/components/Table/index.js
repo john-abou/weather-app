@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useWeatherContext } from '../../contexts';
+import Icon from '../Icon';
 import './style.css';
 
 
@@ -176,30 +177,41 @@ export default function DenseTable() {
       })
       console.log('test: ', test);
 
-      // Dispatch the summarizedData array to the state.
-
       return summarizedData;
     }
   };
 
   const formatDate = (date) => {
-    const dateText = date.toString();
-    const dateArray = dateText.split(' ');
-    const day = dateArray[0];
-    return day;
+    const currentDate = new Date();
+    const currentDay = currentDate.getDay();
+    // If the current date entered is today, return 'Today'
+    if (date.getDay() === currentDay) {
+      return 'Today';
+      }
+      else {
+        const dateText = date.toString();
+        const dateArray = dateText.split(' ');
+        const day = dateArray[0];
+        return day;
+      }
   }
 
   const formatTemp = (temp) => {
     return Math.floor(temp -275.15) + '°C';
   }
-    
 
   useEffect(() => {
-    summarizeForecast();
-    console.log('summarizedData: ', summarizedData)
+    const summarizedForecast = summarizeForecast();
+    console.log('summarizedForecast: ', summarizedForecast)
+    console.log('summarizedFiveDayForecast: ', summarizedFiveDayForecast)
+    dispatch({
+      type: 'SET_SUMMARIZED_FORECAST',
+      summarizedFiveDayForecast: summarizedForecast
+    })
+    console.log('summarizedFiveDayForecast', summarizedFiveDayForecast)
   }, [fiveDayForecast])
     
-  if (fiveDayForecast[0]?.main === undefined || summarizedData === []) {
+  if (fiveDayForecast[0]?.main === undefined || summarizedFiveDayForecast === undefined) {
     return (
       <h1>Loading...</h1>
     )
@@ -211,25 +223,25 @@ export default function DenseTable() {
             <TableHead>
               <TableRow>
                 <TableCell>Date</TableCell>
+                <TableCell> </TableCell>
                 <TableCell align="right">Low °C</TableCell>
                 <TableCell align="right">High °C</TableCell>
-                <TableCell align="right">Avg °C</TableCell>
                 <TableCell align="right">Wind</TableCell>
                 <TableCell align="right">Humidity</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {summarizedData.map((row) => (
+              {summarizedFiveDayForecast.map((row, index) => (
                 <TableRow
-                  key={row.dt_txt}
+                  key={index}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
                     {formatDate(row[0].dt_txt)}
                   </TableCell>
-                  <TableCell align="right">{formatTemp(row[0].min_temp)}</TableCell>
-                  <TableCell align="right">{formatTemp(row[0].max_temp)}</TableCell>
-                  <TableCell align="right">{formatTemp(row[0].main.temp)}</TableCell>
+                  <TableCell align='center'><Icon icon={row[0].weather[0].icon} height='25px' width='30px'/></TableCell>
+                  <TableCell align="right">{formatTemp(row[0].main.temp_min)}</TableCell>
+                  <TableCell align="right">{formatTemp(row[0].main.temp_max)}</TableCell>
                   <TableCell align="right">{row[0].wind.speed}</TableCell>
                   <TableCell align="right">{row[0].main.humidity}</TableCell>
                 </TableRow>
