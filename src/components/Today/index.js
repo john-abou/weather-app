@@ -56,7 +56,7 @@ export default function Today() {
 
   const formatDate = () => {
     const milliseconds = todaysWeather.dt * 1000;
-    const dateObject = new Date(milliseconds);
+    const dateObject = new Date(milliseconds - 5 * 60 * 60 * 1000);
     const month = dateObject.getMonth() + 1;
     const dayOfMonth = dateObject.getDate();
     const formattedDate = `${month.toString().padStart(2, '0')}/${dayOfMonth.toString().padStart(2, '0')}`;

@@ -3,6 +3,7 @@ import React from 'react';
 import Navbar from './components/Navbar';
 import Today from './components/Today';
 import Forecast from './components/Forecast';
+import Table from './components/Table';
 // Import the WeatherProvider from the contexts folder
 import { WeatherProvider } from './contexts';
 
@@ -13,6 +14,7 @@ export default function App() {
         <Navbar />
         <Today />
         <Forecast />
+        <Table />
       </div>
     </WeatherProvider>
   );

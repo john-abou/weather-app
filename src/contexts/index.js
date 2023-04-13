@@ -8,6 +8,7 @@ export const WeatherProvider = ({ children }) => {
     currentCity: 'Toronto',
     todaysWeather: {},
     fiveDayForecast: [],
+    summarizedFiveDayForecast: [],
     geoCoordinates: {
       lat: 43.6535, 
       lon: -79.3839

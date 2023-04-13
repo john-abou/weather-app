@@ -12,8 +12,14 @@ export default function Forecast() {
     let queryString = "https://api.openweathermap.org/data/2.5/forecast?lat=" + geoCoordinates.lat + "&lon=" + geoCoordinates.lon + "&appid=5d82752b5eec77e02284baee59150776";
     const response = await fetch(queryString);
     if (response.ok) {
-      const data = await response.json();
-      console.log('Forecast Data below:')
+      let data = await response.json();
+      // Convert the UTC time to EST time
+      for (let i = 0; i < data.list.length; i++) {
+        let date = new Date(data.list[i].dt_txt);
+        date.setHours(date.getHours() - 4);
+        data.list[i].dt_txt = date;
+      }
+      console.log('Forecast Data:')
       console.log(data);
 
       // Update the state with the current city's forecast
@@ -35,6 +41,11 @@ export default function Forecast() {
 
     }
   }, [geoCoordinates]);
+
+  // const detailedForecast = state.fiveDayForecast.splice(0, 16); // Note, datetime is in unix time
+  console.log(state.fiveDayForecast) 
+  // console.log(detailedForecast);
+
 
   return (
     <div className='forecast-container'>

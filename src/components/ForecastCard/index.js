@@ -73,49 +73,52 @@ export default function ForecastCard( { day } ) {
     }
   }
   const formatDate = () => {
-    const milliseconds = day.dt * 1000;
-    const dateObject = new Date(milliseconds);
-    const month = dateObject.getMonth() + 1;
-    const dayOfMonth = dateObject.getDate();
+    const month =  day.dt_txt.getMonth() + 1;
+    const dayOfMonth =  day.dt_txt.getDate();
     const formattedDate = `${month.toString().padStart(2, '0')}/${dayOfMonth.toString().padStart(2, '0')}`;
     return formattedDate;
   }
   const formatTime = () => {
-    const milliseconds = day.dt * 1000;
-    const dateObject = new Date(milliseconds);
-    const hours = dateObject.getHours();
+    const hours = day.dt_txt.getHours();
     const amOrPm = hours >= 12 ? 'PM' : 'AM';
     const formattedHours = hours % 12 || 12;
-    const formattedTime = `${formattedHours}:${dateObject.getMinutes().toString().padStart(2, '0')} ${amOrPm}`;
+    const formattedTime = `${formattedHours} ${amOrPm}`    
     return formattedTime;
   }
   
 
   return (
     <div className="forecast-card">
-      <Card>
-        <CardActionArea>
+      <Card sx={{width: '70px'}}>
+        <CardActionArea >
           <CardMedia
             component="img"
             height="65"
             image={getIcon()}
             alt="weather forecast"
           />
-          <CardContent>
+          <CardContent sx = {{padding: '1rem .2rem .5rem'}}>
             <Typography
               gutterBottom
               variant="body1"
-              component="div">
+              component="div"
+              fontSize="1rem"
+              margin="0"
+              >
               {formatTime()}
             </Typography>
-            {/* <Typography 
+            <Typography 
               gutterBottom 
               variant="body1" 
-              component="div">
+              component="div"
+              fontSize=".75rem"
+              color='text.secondary'
+              >
               {formatDate()}
-            </Typography> */}
+            </Typography>
             <Typography 
-              variant="body2" 
+              variant="body1"
+              fontSize='.9rem'
               color="text.secondary">
               {(day.main===undefined) ? Math.floor(273.15) + '°C' : Math.floor(day?.main?.temp - 273.15) + '°C'}
             </Typography>
