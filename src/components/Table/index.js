@@ -168,9 +168,17 @@ export default function DenseTable() {
       summarizedData.push(day4Summary);
       summarizedData.push(day5Summary);
 
+      console.log('summarizedData: ')
       console.log(summarizedData);
 
+      const test = summarizedData.map((item) => {
+        return formatTemp(item[0].main.temp_min);
+      })
+      console.log('test: ', test);
+
       // Dispatch the summarizedData array to the state.
+
+      return summarizedData;
     }
   };
 
@@ -188,9 +196,10 @@ export default function DenseTable() {
 
   useEffect(() => {
     summarizeForecast();
+    console.log('summarizedData: ', summarizedData)
   }, [fiveDayForecast])
     
-  if (fiveDayForecast[0]?.main === undefined) {
+  if (fiveDayForecast[0]?.main === undefined || summarizedData === []) {
     return (
       <h1>Loading...</h1>
     )
@@ -198,7 +207,7 @@ export default function DenseTable() {
     return (
       <div className='table-forecast'>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+          <Table sx={{ mt: 3 , minWidth: 650 }} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
                 <TableCell>Date</TableCell>
@@ -210,19 +219,19 @@ export default function DenseTable() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {summarizedData.map((day) => (
+              {summarizedData.map((row) => (
                 <TableRow
-                  key={day[0].dt_txt}
+                  key={row.dt_txt}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {formatDate(day[0].dt_txt)}
+                    {formatDate(row[0].dt_txt)}
                   </TableCell>
-                  <TableCell align="right">{formatTemp(day[0].min_temp)}</TableCell>
-                  <TableCell align="right">{formatTemp(day[0].max_temp)}</TableCell>
-                  <TableCell align="right">{formatTemp(day[0].main.temp)}</TableCell>
-                  <TableCell align="right">{day[0].wind.speed}</TableCell>
-                  <TableCell align="right">{day[0].main.humidity}</TableCell>
+                  <TableCell align="right">{formatTemp(row[0].min_temp)}</TableCell>
+                  <TableCell align="right">{formatTemp(row[0].max_temp)}</TableCell>
+                  <TableCell align="right">{formatTemp(row[0].main.temp)}</TableCell>
+                  <TableCell align="right">{row[0].wind.speed}</TableCell>
+                  <TableCell align="right">{row[0].main.humidity}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
