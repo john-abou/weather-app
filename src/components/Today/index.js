@@ -49,7 +49,10 @@ export default function Today() {
   return (
       <div className='main-container'>
         <Card sx={{
-          maxWidth: 500
+          width: '90%',
+          backgroundColor: 'rgba(40, 86, 163, 0.3)',
+          borderRadius: '1em',
+          color: 'white'
           }}>
           <CardActionArea>
             <CardContent
@@ -66,11 +69,10 @@ export default function Today() {
                   {formatDate()}
               </Typography>
             </CardContent>
-            <Icon icon={todaysWeather.weather ? todaysWeather.weather[0].icon : '01d'} height='160px' />
+            <Icon icon={todaysWeather.weather ? todaysWeather.weather[0].icon : '01d'} height='160px' width='175px' />
             <CardContent>
               <Typography 
                 variant="body1" 
-                color="text.secondary"
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',

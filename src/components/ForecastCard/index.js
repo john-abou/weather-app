@@ -23,9 +23,18 @@ export default function ForecastCard( { day } ) {
   }
   return (
     <div className="forecast-card">
-      <Card sx={{width: '70px'}}>
+      <Card 
+      sx={{
+        width: '100px',
+        backgroundColor: 'rgba(135, 206, 235, 0)',
+        boxShadow: 'none',
+        borderRadius: '0',
+        padding: '0',
+        color: 'white'
+      }}
+      >
         <CardActionArea >
-          <Icon icon={day.weather[0].icon} height='60px'/>
+          <Icon icon={day.weather[0].icon} height='60px' width='60px'/>
           <CardContent sx = {{padding: '1rem .2rem .5rem'}}>
             <Typography
               gutterBottom
@@ -41,14 +50,13 @@ export default function ForecastCard( { day } ) {
               variant="body1" 
               component="div"
               fontSize=".75rem"
-              color='text.secondary'
               >
               {formatDate()}
             </Typography>
             <Typography 
               variant="body1"
               fontSize='.9rem'
-              color="text.secondary">
+              >
               {(day.main===undefined) ? Math.floor(273.15) + '°C' : Math.floor(day?.main?.temp - 273.15) + '°C'}
             </Typography>
           </CardContent>

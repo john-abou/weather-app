@@ -1,5 +1,12 @@
 .table-forecast {
-  margin-top: 1rem;
-  width: 95vh;
-  margin: 0 auto;
+  width: 90%;
+  margin: 0 auto 3%;
+}
+
+.loading-container{
+  text-align: center;
+}
+
+.no-border{
+  border: none;
 }

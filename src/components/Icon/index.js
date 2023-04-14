@@ -18,6 +18,7 @@ import snow2 from '../../assets/images/icons/13n.png';
 import windy from '../../assets/images/icons/50d.png';
 import windy2 from '../../assets/images/icons/50n.png';
 import { useWeatherContext } from '../../contexts';
+import './style.css';
 
 export default function Icon ( {icon, height, width} ) {
   const [state, dispatch] = useWeatherContext();
@@ -69,12 +70,14 @@ export default function Icon ( {icon, height, width} ) {
   };
 
   return (
-    <CardMedia
-        sx={{ width: width}}
-        component="img"
-        height={height}
-        image={getIcon()}
-        alt="weather icon"
-      />
+    <div className='icon-container'>
+      <CardMedia
+          sx={{ width: width, margin: '0 auto'}}
+          component="img"
+          height={height}
+          image={getIcon()}
+          alt="weather icon"
+        />
+    </div>
   );
 }

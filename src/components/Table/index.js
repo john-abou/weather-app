@@ -2,10 +2,8 @@ import React, {useEffect} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import { useWeatherContext } from '../../contexts';
 import Icon from '../Icon';
 import './style.css';
@@ -197,7 +195,7 @@ export default function DenseTable() {
   }
 
   const formatTemp = (temp) => {
-    return Math.floor(temp -275.15) + '°C';
+    return Math.floor(temp -273) + '°C';
   }
 
   useEffect(() => {
@@ -213,42 +211,49 @@ export default function DenseTable() {
     
   if (fiveDayForecast[0]?.main === undefined || summarizedFiveDayForecast === undefined) {
     return (
-      <h1>Loading...</h1>
+      <div className='loading-container'>
+        <h1>Loading...</h1>
+      </div>
     )
   } else {
     return (
       <div className='table-forecast'>
-        <TableContainer component={Paper}>
-          <Table sx={{ mt: 3 , minWidth: 650 }} size="small" aria-label="a dense table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Date</TableCell>
-                <TableCell> </TableCell>
-                <TableCell align="right">Low °C</TableCell>
-                <TableCell align="right">High °C</TableCell>
-                <TableCell align="right">Wind</TableCell>
-                <TableCell align="right">Humidity</TableCell>
+        <Table sx={{
+          backgroundColor: 'rgba(40, 86, 163, 0.3)',  
+          borderBottom: 'none',
+          border: 'none',
+          borderRadius: '1em',
+          }} 
+          size="small" 
+          aria-label="a dense table">
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{color: 'white', borderBottom: 'none', fontSize: '1em'}}l>Date</TableCell>
+              <TableCell sx={{color: 'white', borderBottom: 'none'}}> </TableCell>
+              <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: '1em'}} align="center">Low °C</TableCell>
+              <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: '1em'}} align="center">High °C</TableCell>
+              <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: '1em'}} align="center">Wind (m/s)</TableCell>
+              <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: '1em'}} align="center">Humidity %</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody sx={{color: 'white', borderBottom: 'none'}}>
+            {summarizedFiveDayForecast.map((row, index) => (
+              <TableRow
+                key={index}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell sx={{color: 'white', borderBottom: 'none'}} component="th" scope="row">
+                  {formatDate(row[0].dt_txt)}
+                </TableCell>
+                <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none'}} align='center'><Icon icon={row[0].weather[0].icon} height='25px' width='30px'/></TableCell>
+                <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none'}} align="center">{formatTemp(row[0].main.temp_min)}</TableCell>
+                <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none'}} align="center">{formatTemp(row[0].main.temp_max)}</TableCell>
+                <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none'}} align="center">{row[0].wind.speed}</TableCell>
+                <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none'}} align="center">{row[0].main.humidity}</TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {summarizedFiveDayForecast.map((row, index) => (
-                <TableRow
-                  key={index}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    {formatDate(row[0].dt_txt)}
-                  </TableCell>
-                  <TableCell align='center'><Icon icon={row[0].weather[0].icon} height='25px' width='30px'/></TableCell>
-                  <TableCell align="right">{formatTemp(row[0].main.temp_min)}</TableCell>
-                  <TableCell align="right">{formatTemp(row[0].main.temp_max)}</TableCell>
-                  <TableCell align="right">{row[0].wind.speed}</TableCell>
-                  <TableCell align="right">{row[0].main.humidity}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+            ))}
+          </TableBody>
+        </Table>
       </div>
     );
   }

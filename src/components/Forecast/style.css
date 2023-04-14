@@ -1,52 +1,17 @@
 .forecast-container {
   display: flex;
   flex-wrap: nowrap;
-  width: 95vh;
-  margin: 0 auto;
-  overflow-x: hidden;
-  position: relative; /* make the container a positioned element */
-}
-
-.forecast-container:hover {
+  align-items: center;
+  border-radius: 1em;
+  width: 90%;
+  height: 20%;
+  margin: 0 auto 3%;
   overflow-x: auto;
-}
-
-.forecast-container::-webkit-scrollbar {
-  /* hide the scrollbar by default */
-  display: none;
-}
-
-.forecast-container:hover::-webkit-scrollbar {
-  /* show the scrollbar on hover */
-  display: block;
-}
-
-.forecast-container::before,
-.forecast-container::after {
-  /* add pseudo-elements to create the gradient fade effect */
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100px; /* set the width to the size of the gradient */
-  pointer-events: none; /* make the pseudo-elements non-clickable */
-  transition: background-image 0.5s ease-out; /* add a transition for smooth effect */
-}
-
-.forecast-container::before {
-  left: 0;
-  background-image: linear-gradient(to left, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 1) 100%);
-}
-
-.forecast-container::after {
-  right: 0;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 1) 100%);
-}
-
-.forecast-container:hover::before,
-.forecast-container:hover::after {
-  /* change the background image to a transparent color on hover to make the gradient disappear */
-  background-image: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 100%);
+  background-color: rgba(40, 86, 163, 0.3);
+  /* Potential background colors */
+  /* background-color: rgba(173, 216, 230, 0.5); */ 
+  /* background-color: rgba(107, 165, 255, 0.5); */
+  /* background-color: rgba(105, 105, 105, 0.3); */
 }
 
 .forecast-container::-webkit-scrollbar-thumb {
