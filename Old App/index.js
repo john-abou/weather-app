@@ -27,7 +27,7 @@ function init() {
 function isoToReadableDate( isoNumber ) {
     let milliseconds = isoNumber * 1000;
     let dateObject = new Date(milliseconds);
-    humanDateFormat = dateObject.toLocaleString();
+    let humanDateFormat = dateObject.toLocaleString();
     humanDateFormat = humanDateFormat.substring(0, humanDateFormat.length-12); // remove the hours, minutes, and seconds from the date
     return humanDateFormat;
 }
@@ -172,7 +172,7 @@ function buttonClickHandler (event) {
     
     // Check if the search button was clicked and ensure the input is not empty
     if (elementClicked.matches('.search')) {
-        city = document.querySelector('input').value; // Get the value from the input
+        let city = document.querySelector('input').value; // Get the value from the input
         if (city !== "") {
             getCoordinates(city);
             saveSearchHistory(city);

@@ -3,7 +3,6 @@ html,body {
     box-sizing: border-box;
 }
 
-
 /*Styling the header */
 header {
     background-color: #000;
@@ -14,16 +13,14 @@ header {
     width: 100%;
 }
 
-
 /*Styling the cards */
 .custom-card{
-    margin: 12px 5px;
+    margin: 1em 1em;
 }
 .search-history {
     margin: 5px 0px;
     width: 100%
 }
-
 
 /* Styling the forecast cards */
 #forecast h5 {

@@ -1,0 +1,47 @@
+/* Styling the container for today's conditions */
+.main-container {
+  width: 100%;
+  height: 30%;
+  margin: 3% auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/* Styling the title for today's conditions */
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.title {
+  font-size: 1.5rem;
+  line-height: 1rem;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+.timezone {
+  font-size: .75rem;
+    line-height: 1rem;
+  font-weight: 300;
+  text-align: center;
+}
+
+/* Styling the low/high temps of today's conditions */
+.today-low-high {
+  display: flex;
+  padding-top: .5rem;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.today-low-high p {
+  font-size: .9rem;
+  line-height: 1rem;
+  font-weight: 300;
+  margin: 0 1rem;
+}

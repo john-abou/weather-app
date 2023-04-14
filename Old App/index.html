@@ -15,29 +15,41 @@
 
 <body>
 
-    <div class="container">
+    <div class="container-fluid" >
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Weather Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="row">
-
-            <header class="col-12">
-                <h1>Weather Dashboard</h1>
-            </header>
-
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Previously Searched
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item disabled" href="#">Previously Searched</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Test</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0 d-flex flex-row">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </div>
+        </nav>
+
         
-        <div class="row">
+        <div class="row">                
+            <div id="search-history-container">
+            </div>
 
-            <aside class="col-3">
-                <div class="input-group">
-                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                    <button type="button" class="btn btn-dark search">search</button>
-                </div>
-                
-                <div id="search-history-container">
-                </div>
-            </aside>
-
-            <main class="col-9">
+            <main class="col-10">
                 <section>
                     <div class="card">
                         <div class="card-body" id="current-weather">
@@ -112,5 +124,14 @@
 
     <!-- Custom JavaScript -->
     <script src="./js/index.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha384-/Y6p8/XzmvSAeLq6AZ/vOndBkTKUmulqK3XnGnLs6AFyWOhLJLrUz+WNyJi4FvWm"
+            crossorigin="anonymous"></script>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+            integrity="sha384-WxcDuzA7rWwQTrNz7hZdxQ+PNb7TmRtC1v7V1FtCmct7VzEGs47+vBq3/6pPrfFF"
+            crossorigin="anonymous"></script>
 </body>
 </html>
