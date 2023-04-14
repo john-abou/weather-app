@@ -1,7 +1,9 @@
 # 06 Server-Side APIs: Weather Dashboard
 
 ## Description
-My motivation for making this weather app was to practice my skills using server side API's and making/handling requests. I furthered my understanding of using serverside API's and handling requests using javascript's fetch() object. Specifically, I learned how important it is navigate server documentation and maneuver the DOM to update the page using the returned JSON object. In my next application I'd like to dynamically create HTML elements and update the page instead of having hard coded HTML. Having the hard coded HTML makes my page less adaptable and it makes it difficult to make changes.  
+My motivation for refactoring my old weather app was to get more practice with React, improve the UI design and improve the functionality of the app. In the re-design, I removed the static containers I hard-coded in HTML and instead dynamically created 2 new features based on the data received from the API. The first feature is a 2 day detailed forecast that contains updates for the weather every 3 hours, it can be used to get more insight into the weather over the next 2 days. The second feature is a table that summarizes the next 5 days weather -- it includes the expected low/high temps, wind and humidity. The app is also responsive and can be used on mobile devices.
+
+Future development for this app will include a feature that allows the user to save their favorite cities and view them on the page.
 
 
 ## Deployment
