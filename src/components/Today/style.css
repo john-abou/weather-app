@@ -1,7 +1,8 @@
 /* Styling the container for today's conditions */
 .main-container {
   width: 100%;
-  height: 30%;
+  min-height: 30vh;
+  max-height: 40vh;
   margin: 3% auto;
   display: flex;
   flex-direction: column;
@@ -44,4 +45,22 @@
   line-height: 1rem;
   font-weight: 300;
   margin: 0 1rem;
+}
+
+@media screen and (max-height: 895px) {
+  .today-low-high p {
+    font-size: .8rem;
+    line-height: .9rem;
+    font-weight: 200;
+  }
+  .title {
+    font-size: 1.2rem;
+    line-height: .9rem;
+    font-weight: 300;
+  }
+  .timezone {
+    font-size: .6rem;
+    line-height: .9rem;
+    font-weight: 200;
+  }
 }

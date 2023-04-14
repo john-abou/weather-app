@@ -66,15 +66,13 @@ export default function Forecast() {
     }
   }, [geoCoordinates]);
 
-  // const detailedForecast = state.fiveDayForecast.splice(0, 16); // Note, datetime is in unix time
-  console.log(state.fiveDayForecast) 
-  // console.log(detailedForecast);
-
+  // const detailedForecast = state.fiveDayForecast.splice(0, 16);
+  const twoDayForecast = state.fiveDayForecast.slice(0, 16);
 
   return (
     <div className='forecast-container'>
       {(state.fiveDayForecast !== []) ? 
-        state.fiveDayForecast.map((day, index) => (
+        twoDayForecast.map((day, index) => (
         <ForecastCard day={day} key={index} />
       ))
       :

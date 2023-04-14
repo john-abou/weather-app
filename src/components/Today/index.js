@@ -5,13 +5,15 @@ import Icon from '../Icon';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
 import { timezoneMap } from '../../utils/helpers';
+import { useMediaQuery } from '@mui/material';
 import './style.css';
 
 export default function Today() {
   const [state, dispatch] = useWeatherContext();
   const { geoCoordinates, todaysWeather, currentCity, timezone } = state;
+
+  const isMediumScreen = useMediaQuery('(max-height:895px)');
 
   const formatTimeData = ( data ) => {
     // Conver the unix UTC time to the local time of the city using the unix timezone offset
@@ -77,66 +79,71 @@ export default function Today() {
           width: '90%',
           backgroundColor: 'rgba(40, 86, 163, 0.3)',
           borderRadius: '1em',
-          color: 'white'
+          color: 'white',
           }}>
-          <CardActionArea>
-            <CardContent
+          <CardContent
+            sx={{
+              component: 'img',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              paddingBottom: '0',
+            }}
+          > 
+          <Typography 
+            sx={{
+              fontSize: isMediumScreen ? '1em' : '1.2em', 
+              display: 'flex', 
+              flexDirection: 'column', 
+              lineHeight: isMediumScreen ? '1em' : '1.1em', 
+              alignItems: 'center'
+            }}
+            gutterBottom 
+            variant="h6" 
+            component="div">
+                {formatDate()}
+          </Typography>
+          <Typography 
+              variant="body1" 
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                paddingBottom: '0'
+                fontSize: isMediumScreen ? '3em' : '4em',
+                lineHeight: isMediumScreen ? '1.1em' : '1.3em'
               }}
-            > 
-            <Typography 
-              sx={{fontSize: '1.2em', display: 'flex', flexDirection: 'column', lineHeight: '1.1em', alignItems: 'center'}}
-              gutterBottom 
-              variant="h6" 
-              component="div">
-                  {formatDate()}
+            >
+              {(todaysWeather.main===undefined) ? Math.floor(273.15) + '°C' : formatTemp(todaysWeather?.main?.temp)}
             </Typography>
-            <Typography 
-                variant="body1" 
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  fontSize: '4em',
-                  lineHeight: '1.3em'
-                }}
-              >
-                {(todaysWeather.main===undefined) ? Math.floor(273.15) + '°C' : formatTemp(todaysWeather?.main?.temp)}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  fontSize: '1.2em',
-                  lineHeight: '1.1em'
-                }}
-              >
-                {todaysWeather.weather ? todaysWeather.weather[0].description : 'No Data'}
-              </Typography>
-                <div className='today-low-high'>
-                  <p>
-                  {(todaysWeather.main===undefined) ? Math.floor(273.15) + '°C' : 'Low: ' + formatTemp(todaysWeather?.main?.temp_min)}
-                  </p>
-                  <p>
-                  {(todaysWeather.main===undefined) ? Math.floor(273.15) + '°C' : 'High: ' + formatTemp(todaysWeather?.main?.temp_max)}
-                  </p>
-                </div>
-            </CardContent>
-            <Icon icon={todaysWeather.weather ? todaysWeather.weather[0].icon : '01d'} height='160px' width='175px' />
-            <CardContent sx={{paddingTop: '0'}}>
-            <div className='title-container'>
-              <p className='title'>{currentCity}</p>
-              <p className='timezone'>{timezone}</p>
-            </div>
-            </CardContent>
-          </CardActionArea>
-        </Card>        
-      </div>
+            <Typography
+              variant="body1"
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                fontSize: isMediumScreen ? '1em' : '1.2em',
+                lineHeight: isMediumScreen ? '.9em' : '1.1em'
+              }}
+            >
+              {todaysWeather.weather ? todaysWeather.weather[0].description : 'No Data'}
+            </Typography>
+              <div className='today-low-high'>
+                <p>
+                {(todaysWeather.main===undefined) ? Math.floor(273.15) + '°C' : 'Low: ' + formatTemp(todaysWeather?.main?.temp_min)}
+                </p>
+                <p>
+                {(todaysWeather.main===undefined) ? Math.floor(273.15) + '°C' : 'High: ' + formatTemp(todaysWeather?.main?.temp_max)}
+                </p>
+              </div>
+          </CardContent>
+          <Icon icon={todaysWeather.weather ? todaysWeather.weather[0].icon : '01d'} height={isMediumScreen ? '125px' : '160px'} width={isMediumScreen ? '140px' : '175px'} />
+          <CardContent sx={{paddingTop: '0'}}>
+          <div className='title-container'>
+            <p className='title'>{currentCity}</p>
+            <p className='timezone'>{timezone}</p>
+          </div>
+          </CardContent>
+        </Card>    
+      </div>  
   );
 }

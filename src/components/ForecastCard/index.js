@@ -3,11 +3,13 @@ import Icon from '../Icon';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import './style.css';
 
 
 export default function ForecastCard( { day } ) {
+  const isMediumScreen = useMediaQuery('(max-height:895px)');
+
   const formatDate = () => {
     const timestamp = new Date(day.dt_txt);
     const month =  timestamp.getMonth() + 1;
@@ -35,34 +37,33 @@ export default function ForecastCard( { day } ) {
         color: 'white'
       }}
       >
-        <CardActionArea >
-          <Icon icon={day.weather[0].icon} height='60px' width='60px'/>
-          <CardContent sx = {{padding: '1rem .2rem .5rem'}}>
-            <Typography
-              gutterBottom
-              variant="body1"
-              component="div"
-              fontSize="1rem"
-              margin="0"
-              >
-              {formatTime()}
-            </Typography>
-            <Typography 
-              gutterBottom 
-              variant="body1" 
-              component="div"
-              fontSize=".75rem"
-              >
-              {formatDate()}
-            </Typography>
-            <Typography 
-              variant="body1"
-              fontSize='.9rem'
-              >
-              {(day.main===undefined) ? Math.floor(273.15) + '°C' : Math.floor(day?.main?.temp - 273.15) + '°C'}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
+        <Icon icon={day.weather[0].icon} height='50px' width='50px'/>
+        <CardContent sx = {{padding: '0',marginBottom: '-24px'}}>
+          <Typography
+            gutterBottom
+            variant="body1"
+            fontSize={isMediumScreen ? '.8rem' : "1rem"}
+            fontWeight={isMediumScreen ? '300' : "400"}
+            margin="0"
+            >
+            {formatTime()}
+          </Typography>
+          <Typography 
+            gutterBottom 
+            variant="body1" 
+            fontSize={isMediumScreen ? '.7rem' : ".75rem"}
+            fontWeight={isMediumScreen ? '200' : "300"}
+            >
+            {formatDate()}
+          </Typography>
+          <Typography 
+            variant="body1"
+            fontSize={isMediumScreen ? '.8rem' : '.9rem'}
+            fontWeight={isMediumScreen ? '400' : "500"}
+            >
+            {(day.main===undefined) ? Math.floor(273.15) + '°C' : Math.floor(day?.main?.temp - 273.15) + '°C'}
+          </Typography>
+        </CardContent>
       </Card>
     </div>
   );

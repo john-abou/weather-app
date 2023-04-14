@@ -1,24 +1,37 @@
+/* Potential background colors */
+/* background-color: rgba(173, 216, 230, 0.5); */ 
+/* background-color: rgba(107, 165, 255, 0.5); */
+/* background-color: rgba(105, 105, 105, 0.3); */
 .forecast-container {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   border-radius: 1em;
   width: 90%;
-  height: 20%;
+  min-height: 10vh;
+  max-height: 18vh;
   margin: 0 auto 3%;
-  overflow-x: auto;
-  background-color: rgba(40, 86, 163, 0.3);
-  /* Potential background colors */
-  /* background-color: rgba(173, 216, 230, 0.5); */ 
-  /* background-color: rgba(107, 165, 255, 0.5); */
-  /* background-color: rgba(105, 105, 105, 0.3); */
+  overflow-x: scroll;
+  overflow-y: hidden;
+  background-color: rgba(40, 86, 163, 0.3);  
+  /* Add padding-right equal to width of scrollbar */
+  padding-right: 10px;
+}
+
+.forecast-container:hover {
+  overflow-x: scroll;
+}
+
+.forecast-container::-webkit-scrollbar {
+  width: 8px;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .forecast-container::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2); /* set the color of the scrollbar thumb */
-  border-radius: 10px; /* add some border radius to make it look nicer */
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
 }
 
 .forecast-container:hover::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.5); /* set a darker color on hover */
+  background-color: rgba(0, 0, 0, 0.5);
 }

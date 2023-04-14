@@ -5,6 +5,7 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useWeatherContext } from '../../contexts';
+import { useMediaQuery } from '@mui/material';
 import Icon from '../Icon';
 import './style.css';
 
@@ -12,6 +13,8 @@ import './style.css';
 export default function DenseTable() {
   const [state, dispatch] = useWeatherContext();
   const { fiveDayForecast, summarizedFiveDayForecast } = state;
+
+  const isMediumScreen = useMediaQuery('(max-height:895px)');
 
   const summarizedData = [];
 
@@ -218,40 +221,42 @@ export default function DenseTable() {
   } else {
     return (
       <div className='table-forecast'>
-        <Table sx={{
-          backgroundColor: 'rgba(40, 86, 163, 0.3)',  
-          borderRadius: '1em',
-          }} 
-          size="small" 
-          aria-label="a dense table">
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{color: 'white', borderBottom: 'none', fontSize: '1em'}}l>Date</TableCell>
-              <TableCell sx={{color: 'white', borderBottom: 'none'}}> </TableCell>
-              <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: '1em'}} align="center">Low °C</TableCell>
-              <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: '1em'}} align="center">High °C</TableCell>
-              <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: '1em'}} align="center">Wind (m/s)</TableCell>
-              <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: '1em'}} align="center">Humidity %</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody sx={{color: 'white', borderBottom: 'none'}}>
-            {summarizedFiveDayForecast.map((row, index) => (
-              <TableRow
-                key={index}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell sx={{color: 'white', borderBottom: 'none'}} component="th" scope="row">
-                  {formatDate(row[0].dt_txt)}
-                </TableCell>
-                <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none'}} align='center'><Icon icon={row[0].weather[0].icon} height='25px' width='30px'/></TableCell>
-                <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none'}} align="center">{formatTemp(row[0].main.temp_min)}</TableCell>
-                <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none'}} align="center">{formatTemp(row[0].main.temp_max)}</TableCell>
-                <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none'}} align="center">{row[0].wind.speed}</TableCell>
-                <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none'}} align="center">{row[0].main.humidity}</TableCell>
+        <div className='table-margin'>
+          <Table sx={{
+            backgroundColor: 'rgba(40, 86, 163, 0.3)',  
+            borderRadius: '1em',
+            }} 
+            size="small" 
+            aria-label="a dense table">
+            <TableHead>
+              <TableRow>
+                <TableCell sx={{color: 'white', borderBottom: 'none', fontSize: isMediumScreen ? '.85rem' :'1em', fontWeight: isMediumScreen ? '300' :'400'}}>Date</TableCell>
+                <TableCell sx={{color: 'white', borderBottom: 'none'}}> </TableCell>
+                <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: isMediumScreen ? '.85rem' :'1em', fontWeight: isMediumScreen ? '300' :'400'}} align="center">Low °C</TableCell>
+                <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: isMediumScreen ? '.85rem' :'1em', fontWeight: isMediumScreen ? '300' :'400'}} align="center">High °C</TableCell>
+                <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: isMediumScreen ? '.85rem' :'1em', fontWeight: isMediumScreen ? '300' :'400'}} align="center">Wind (m/s)</TableCell>
+                <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: isMediumScreen ? '.85rem' :'1em', fontWeight: isMediumScreen ? '300' :'400'}} align="center">Humidity %</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody sx={{color: 'white', borderBottom: 'none'}}>
+              {summarizedFiveDayForecast.map((row, index) => (
+                <TableRow
+                  key={index}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell sx={{color: 'white', borderBottom: 'none', fontSize: isMediumScreen ? '.75rem' :'.9em', fontWeight: isMediumScreen ? '200' :'300'}} component="th" scope="row">
+                    {formatDate(row[0].dt_txt)}
+                  </TableCell>
+                  <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: isMediumScreen ? '.75rem' :'.9em', fontWeight: isMediumScreen ? '200' :'300'}} align='center'><Icon icon={row[0].weather[0].icon} height={isMediumScreen ? '20px' : '25px'} width={isMediumScreen ? '25px' : '30px'}/></TableCell>
+                  <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: isMediumScreen ? '.75rem' :'.9em', fontWeight: isMediumScreen ? '200' :'300'}} align="center">{formatTemp(row[0].main.temp_min)}</TableCell>
+                  <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: isMediumScreen ? '.75rem' :'.9em', fontWeight: isMediumScreen ? '200' :'300'}} align="center">{formatTemp(row[0].main.temp_max)}</TableCell>
+                  <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: isMediumScreen ? '.75rem' :'.9em', fontWeight: isMediumScreen ? '200' :'300'}} align="center">{row[0].wind.speed}</TableCell>
+                  <TableCell className="no-border" sx={{color: 'white', borderBottom: 'none', fontSize: isMediumScreen ? '.75rem' :'.9em', fontWeight: isMediumScreen ? '200' :'300'}} align="center">{row[0].main.humidity}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     );
   }

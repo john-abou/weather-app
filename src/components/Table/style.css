@@ -1,6 +1,20 @@
 .table-forecast {
   width: 90%;
-  margin: 0 auto 3%;
+  margin: 0 auto 1%;
+  min-height: 25vh;
+  max-height: 28vh;
+  box-sizing: border-box;
+  position: relative; /* Add position relative to the parent element */
+  overflow-x: auto; /* Add horizontal scroll */
+  overflow-y: hidden; /* Hide vertical scroll */
+}
+
+.table-margin {
+  pointer-events: none; /* Ignore pointer events */
+}
+
+.table-forecast:hover > .table-margin {
+  pointer-events: auto; /* Allow pointer events for the child element */
 }
 
 .loading-container{
