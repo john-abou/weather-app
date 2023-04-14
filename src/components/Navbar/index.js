@@ -108,7 +108,7 @@ export default function SearchAppBar() {
               placeholder="Search a city…"
               inputProps={{ 'aria-label': 'search' }}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') {
+                if (e.key === 'Enter' || e.key === 'Tab' || e.key === 'Done') {
                   handleSearchSubmit(e);
                 }
               }}
