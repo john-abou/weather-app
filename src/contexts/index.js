@@ -13,6 +13,7 @@ export const WeatherProvider = ({ children }) => {
       lat: 43.6535, 
       lon: -79.3839
     },
+    timezone: 'GTM-4:00',
     searchHistory: [],
   });
 

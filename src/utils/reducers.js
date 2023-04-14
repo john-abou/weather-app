@@ -3,7 +3,8 @@ import {
   UPDATE_CURRENT_CITY, 
   TODAYS_WEATHER, 
   FIVE_DAY_FORECAST,
-  SET_SUMMARIZED_FORECAST
+  SET_SUMMARIZED_FORECAST,
+  SET_TIMEZONE,
 } from './actions.js'
 import { useReducer } from 'react';
 
@@ -33,6 +34,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         summarizedFiveDayForecast: action.summarizedFiveDayForecast
+      };
+    case SET_TIMEZONE:
+      return {
+        ...state,
+        timezone: action.timezone
       };
     default:
       return state;

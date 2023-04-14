@@ -9,13 +9,15 @@ import './style.css';
 
 export default function ForecastCard( { day } ) {
   const formatDate = () => {
-    const month =  day.dt_txt.getMonth() + 1;
-    const dayOfMonth =  day.dt_txt.getDate();
+    const timestamp = new Date(day.dt_txt);
+    const month =  timestamp.getMonth() + 1;
+    const dayOfMonth =  timestamp.getDate();
     const formattedDate = `${month.toString().padStart(2, '0')}/${dayOfMonth.toString().padStart(2, '0')}`;
     return formattedDate;
   }
   const formatTime = () => {
-    const hours = day.dt_txt.getHours();
+    const timestamp = new Date(day.dt_txt);
+    const hours = timestamp.getHours();
     const amOrPm = hours >= 12 ? 'PM' : 'AM';
     const formattedHours = hours % 12 || 12;
     const formattedTime = `${formattedHours} ${amOrPm}`    

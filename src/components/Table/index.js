@@ -220,8 +220,6 @@ export default function DenseTable() {
       <div className='table-forecast'>
         <Table sx={{
           backgroundColor: 'rgba(40, 86, 163, 0.3)',  
-          borderBottom: 'none',
-          border: 'none',
           borderRadius: '1em',
           }} 
           size="small" 

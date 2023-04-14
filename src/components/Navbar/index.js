@@ -58,14 +58,12 @@ export default function SearchAppBar() {
   // Create a function to handle the search submit - it will dispatch the action to update the current city
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
-    // update the state of the current city
-    dispatch({
-      type: UPDATE_CURRENT_CITY,
-      currentCity: e.target.value
-    });
+    const city = e.target.value; // capitalize the first letter of each word in the city
+    const cityArray = city.split(' ');
+    const cityCapitalized = cityArray.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
     // Use openweather API to get geocoordinate data for the city searched
-    const queryString = 'https://api.openweathermap.org/geo/1.0/direct?q=' + e.target.value + '&appid=5d82752b5eec77e02284baee59150776';
+    const queryString = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityCapitalized + '&appid=5d82752b5eec77e02284baee59150776';
     const response = await fetch(queryString);
     if (response.ok) { 
       const data = await response.json()
@@ -77,6 +75,11 @@ export default function SearchAppBar() {
       dispatch({
         type: UPDATE_GEOCOORDINATES,
         geoCoordinates: geoCoordinates
+      });
+          // update the state of the current city
+      dispatch({
+        type: UPDATE_CURRENT_CITY,
+        currentCity: cityCapitalized
       });
     } else {
       console.log('Error: ' + response.statusText);
