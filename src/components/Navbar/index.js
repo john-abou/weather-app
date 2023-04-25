@@ -96,17 +96,18 @@ export default function SearchAppBar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, marginLeft: '4rem' }}
           >
             {state.currentCity}
           </Typography>
-          <Search>
+          <Search sx={{marginRight: '4rem'}}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search a city…"
               inputProps={{ 'aria-label': 'search' }}
+              component='div'
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === 'Tab' || e.key === 'Done') {
                   handleSearchSubmit(e);
