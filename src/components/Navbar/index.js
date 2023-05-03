@@ -8,6 +8,9 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { useWeatherContext } from '../../contexts';
 import { UPDATE_CURRENT_CITY, UPDATE_GEOCOORDINATES } from '../../utils/actions';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -63,7 +66,7 @@ export default function SearchAppBar() {
     const cityCapitalized = cityArray.map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
     // Use openweather API to get geocoordinate data for the city searched
-    const queryString = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityCapitalized + '&appid=5d82752b5eec77e02284baee59150776';
+    const queryString = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityCapitalized + '&appid=' + process.env.REACT_APP_API_KEY;
     const response = await fetch(queryString);
     if (response.ok) { 
       const data = await response.json()
