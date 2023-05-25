@@ -8,6 +8,7 @@ Future development for this app will include a feature that allows the user to s
 
 ## Deployment
 <a href="https://john-abou.github.io/weather-app/">Webpage link</a>
+<img src='src/assets/images/weather-app.png'>
 
 ## Usage
 The webpage has been made for anyone who would like to view the upcoming weather in a city. The user is automatically shown Toronto's weather on the initailization of the webpage. After that, the user can type in the name of any city into the search bar, as long as the enter the correct spelling - the user will be shown the current weather and the weather for the next 5 days in that city. 
